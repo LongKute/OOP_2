@@ -5,7 +5,7 @@ class Modal {
         this.modal = modalId
         this.isOpen = false
     }
-    open(){
+    open(myModal){
         this.modal.style.display = "block"
         // khi bấm myModal bên ngoài sẽ tắt 
         elements.myModal.addEventListener('click', (event) => {
@@ -29,7 +29,7 @@ class Modal {
 document.addEventListener('DOMContentLoaded', () => {
     const modal = new Modal(elements.myModal);
     elements.openModalBtn.addEventListener('click', () => modal.open());
-    // elements.closeBtn.addEventListener('click', () => modal.close());
+    elements.closeBtn.addEventListener('click', () => modal.close());
    
 }) 
 export default Modal
