@@ -1,17 +1,5 @@
 // 1. (Liên quan câu 2) Tạo một lớp Modal để tạo cửa sổ pop-up trên trang web. Lớp này nên có các phương thức như open(), close() và toggle().
-const elements = {}
-const elementIds = [
-    "openModalBtn",
-    "myModal",
-    "closeModalBtn",
-    
-]
-
-elementIds.forEach(function (item) {
-    const element = document.getElementById(item);
-    elements[item] = element
-  });
-    
+import elements from "./val.js";
 class Modal {
     constructor(modalId) {
         this.modal = modalId
@@ -41,11 +29,11 @@ class Modal {
 document.addEventListener('DOMContentLoaded', () => {
     const modal = new Modal(elements.myModal);
     elements.openModalBtn.addEventListener('click', () => modal.open());
-    elements.closeModalBtn.addEventListener('click', () => modal.close());
+    // elements.closeBtn.addEventListener('click', () => modal.close());
    
 }) 
-// module.exports = Modal
-
+export default Modal
+// module.exports = Modal;
 // class Modal {
 //     constructor(modalId) {
 //         this.modal = document.getElementById(modalId);

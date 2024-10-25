@@ -3,14 +3,20 @@ const elements = {}
 const elementIds = [
     "openModalBtn",
     "myModal",
-    "closeModalBtn",
-    'btn'
+    "closeBtn",
+    "openAlertBtn",
+    "myAlert",
+    "closeAlertBtn",
+    "confirmModal",
+    "confirmOkBtn",
+    "confirmNoBtn"
     
 ]
 
 elementIds.forEach(function (item) {
-  elements[item]  = document.getElementById(item);
-    
+  const element = document.getElementById(item);
+  elements[item] =element
   });
 
-export default elements
+// module.exports = elements
+export default  elements
