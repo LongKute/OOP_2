@@ -1,0 +1,1 @@
+// 6. (Liên quan câu 4, 5) Tạo một trang HTML với một nút submit, sau đó viết mã JavaScript để tạo đối tượng SubmitButton và gán hành vi khi nút được bấm.

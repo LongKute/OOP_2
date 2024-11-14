@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modal Example</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <button id="openModalBtn">Open Modal</button>
+    <button id="openAlertBtn">Open Alert</button>
+    
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeBtn">&times;</span>
+            <p>This is a modal window!</p>
+        </div>
+    </div>
+    <div id="myAlert" class="alert">
+        <div class="alert-content">
+            <span class="close-btn" id="closeAlertBtn">&times;</span>
+            <p>This is aleart window!</p>
+        </div>
+    </div>
+    <div id="confirmModal" class="modal">
+        <div class="modal-content">
+            <p>Are you sure you want to close this window?</p>
+            <button id="confirmOkBtn">OK</button>
+            <button id="confirmNoBtn">No</button>
+        </div>
+    </div>
+    <script type="module" src="./1.js"></script>
+    <script type="module" src="./2.js"></script>
+    <script type="module" src="./3.js"></script>
+    <script type="module" src="./val.js"></script>
+    
+</body>
+</html>
