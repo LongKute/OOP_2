@@ -7,6 +7,7 @@ class AuthService {
   }
 
   login() {
+    
     this.isAuthenticated = true;
     if (this.isAuthenticated == true) {
       console.log("Login successful!");

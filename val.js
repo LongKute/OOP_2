@@ -29,7 +29,10 @@ const elementIds = [
     //topic4
     "statusCode",
     "postStatus",
-    "inputStatus",
+    "inputProduct",
+    "inputPrice",
+    "inputQuantity",
+    "postProduct",
     //topic6
     "register_username",
     "register_email",
@@ -45,7 +48,7 @@ const elementIds = [
 
 elementIds.forEach(function (item) {
   const element = document.getElementById(item);
-  elements[item] =element
+  elements[item] = element
   });
 
 // module.exports = elements

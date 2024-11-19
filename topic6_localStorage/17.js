@@ -8,10 +8,8 @@ class UserStorage extends StorageService {
   saveUser(key, user) {
     const users = this.load(key) || [];
 
-    // Kiểm tra trùng lặp (username hoặc email)
-    const isDuplicate = users.some(
-      (existingUser) =>
-        existingUser.username === user.username || existingUser.email === user.email
+    // Check for duplicates (username or email)
+    const isDuplicate = users.some((existingUser) => existingUser.username === user.username || existingUser.email === user.email
     );
 
     if (!isDuplicate) {

@@ -122,9 +122,9 @@ function createEditButtonbyID() {
   return editBtn;
 }
 function createForm(id) {
-  // Tạo form và các thành phần bên trong bằng JavaScript
+ 
   const formContainer = document.getElementById("form-container");
-  // Tạo form
+  
   const form = document.createElement("form");
   // create title
   const title = document.createElement("h2");

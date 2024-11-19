@@ -1,4 +1,3 @@
-// 11. (Liên quan câu 10) Tạo lớp CartStore kế thừa từ Store để quản lý giỏ hàng trong một trang web thương mại điện tử. Lớp này có các phương thức để thêm sản phẩm vào giỏ hàng, xóa sản phẩm và tính tổng tiền.
 // 12. (Liên quan câu 10, 11) Viết mã JavaScript để theo dõi sự thay đổi giỏ hàng thông qua CartStore và cập nhật giao diện người dùng mỗi khi có sản phẩm được thêm hoặc xóa.
 
 // 10. (Liên quan câu 11) Tạo một lớp Store để quản lý trạng thái của ứng dụng. Lớp này nên có các phương thức getState(), setState(), và subscribe() để lưu và lắng nghe sự thay đổi trạng thái.
@@ -11,7 +10,7 @@ const ApiAction = {
     post: "POST",
   };
 const url = "/carts";
-const baseUrl = "http://127.0.0.1:3006";
+const baseURL = "http://127.0.0.1:3006";
 
 class Store {
   constructor(baseUrl) {
@@ -31,19 +30,41 @@ class Store {
       console.log(error);
     }
   }
-  setState() {
+  // setState() {
 
-    elements.postStatus.addEventListener("click", () => {
-        this.getDateAndTime()
+  //   elements.postStatus.addEventListener("click", () => {
+  //       this.getDateAndTime()
         
         
-    })
-  }
-  subscribe() {
-    const newAddCart = {
-      time: this.getDateAndTime(),
-      
+  //   })
+  // }
+  async subscribe(url) {
+   const newCart = {
+    name: elements.inputProduct.value,
+    price: elements.inputPrice.value,
+    quantity: elements.inputQuantity.value
+   }
+   try {
+    const response = await fetch(`${this.baseUrl}${url}`, this.fetchConfig(ApiAction.post, newCart))
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
+    const data = await response.json()
+   
+    
+    elements.postProduct.addEventListener('click', ()=>{
+      console.log(data);
+      
+    
+      
+      
+    })
+    
+    
+    
+   } catch (error) {
+    
+   }
   }
   fetchConfig(ApiAction, bodyData = null){
     const config = {
@@ -63,13 +84,13 @@ class Store {
     var date = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear();
     var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
     var dateTime = date+' '+time;
-    console.log(dateTime);
     // today.toISOString();
     // console.log(today);
     
 
   }
 }
-const store = new Store(baseUrl);
+const store = new Store(baseURL);
 store.getState(url);
-store.setState()
+// store.setState()
+store.subscribe(url)

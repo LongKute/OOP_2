@@ -1,0 +1,40 @@
+{
+  "users": [
+    {
+      "username": "sang123",
+      "email": "sang123@gmail.com",
+      "salt": "a3949e5e4da6947cf5c6e61694597af5",
+      "password": "c5360c0a02929867ebd1c1d4de606f374d85a04b1a56cac67d3ac1825208b9e2845336699672d3424219c5c36978074e7dd76e0582d247757e9593fb471446d1"
+    },
+    {
+      "username": "khang123",
+      "email": "khang123@gmail.com",
+      "salt": "589af9871fdb535f23672ddf70acd039",
+      "password": "d97232405ade5623f80d421efcf8b2c4406c08c2629291565e500c56b4ff56a8cd4a663bb69f61eee42a2f3400fd4f58068c979c7eda2d71b035beb23bf72639"
+    },
+    {
+      "username": "siu123",
+      "email": "siu123@gmail.com",
+      "salt": "98e264e6a1c51fa394deab1e8994239f",
+      "password": "e15f9ad19f177ef71e55cd63779821ba2b1b52b7c9580771ef5d823f3fe9e29f4250b908011f1376521f6dbe92dd3d04eb87b4d6672923a8bfd69f7f794e6c3e"
+    },
+    {
+      "username": "longkuite",
+      "email": "longkute@gmail.com",
+      "salt": "167fa6e470a7ca2b3f190eee0f5575d2",
+      "password": "a739c44a884b22d9e779ab5e0e7e8dde6d1801313472f7d887e21b2a4e121716f78db8dd0cc0bf1d8f198653bdd9186154bf9f1f8c5991ef773a15b62a103f39"
+    },
+    {
+      "username": "admin",
+      "email": "admin@gmail.com",
+      "salt": "401e1dea0e8e7c9d38ff69f2b806e0af",
+      "password": "69b57a6e2e9d649479c6d0166361060d9ce96cbc3a0c321fb3bdc1aa4cf72b6c6ab49d8596e99f737256947202f894920a1f4b1e39aa1aa5f99df79ac59f7550"
+    },
+    {
+      "username": "longkute1",
+      "email": "longkute1",
+      "salt": "c6f35785ce8ff2b55d34a2b85f4acaf3",
+      "password": "bf4ad6d4f6d792753a840a663b7bb63bb690f92720919e60d05e491c65194003"
+    }
+  ]
+}
