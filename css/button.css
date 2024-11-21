@@ -1,0 +1,79 @@
+#formCheck {
+    display: none;
+    width: 400px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin: 50px auto;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  /* Label styling */
+  #formCheck label {
+    color: #333;
+    font-size: 1rem;
+    margin-bottom: 5px;
+  }
+  
+  /* Input styling */
+  #formCheck input {
+    height: 40px;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease-in-out;
+  }
+  
+  #formCheck input:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  /* Button styling */
+  #formCheck button {
+
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+  }
+  
+  #formCheck button:hover {
+    background-color: #0056b3;
+    color: #e6e6e6;
+  }
+  
+  /* Responsive design */
+  @media (max-width: 480px) {
+    #formCheck {
+      width: 100%;
+      padding: 15px;
+      margin: 20px auto;
+    }
+  }
+  #formButton{
+    display:flex;
+    text-align: center;
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+  }
+  #formButton:hover {
+    background-color: #0056b3;
+    color: #e6e6e6;
+  }

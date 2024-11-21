@@ -32,7 +32,7 @@ class AlertModal {
 document.addEventListener("DOMContentLoaded", () => {
   const alert = new AlertModal(elements.myAlert);
   elements.openAlertBtn.addEventListener("click", () => alert.open());
-//   elements.closeAlertBtn.addEventListener("click", () => alert.close());
+  elements.closeAlertBtn.addEventListener("click", () => alert.close());
 });
 
 class ConfirmModal extends AlertModal  {
@@ -66,7 +66,10 @@ class ConfirmModal extends AlertModal  {
     });
     elements.confirmNoBtn.addEventListener("click", () => {
         this.closeConfirmModal()
-        this.close()
+        elements.myAlert.addEventListener('DOMContentLoaded', () => {
+          alert.open()
+        }) 
+        
     })
   }
   showConfirm() {

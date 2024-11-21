@@ -14,7 +14,7 @@ const elementIds = [
     //topic2
     "createBtn",
     "formCheck",
-    "submit-button",
+    "submitButton",
     "name",
     "email",
     //topic3
@@ -33,6 +33,8 @@ const elementIds = [
     "inputPrice",
     "inputQuantity",
     "postProduct",
+    "totalProduct",
+    "listCarts",
     //topic6
     "register_username",
     "register_email",

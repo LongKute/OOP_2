@@ -10,7 +10,7 @@ const crypto = require("crypto");
 const userUrl = "json/users.json";
 const loginUrl = "json/userLogin.json";
 const registerUrl = "json/register.json";
-const carts = "json/carts.json";
+const cartsUrl = "json/carts.json";
 
 // const filePathCart = path.join(__dirname, "carts.json");
 
@@ -47,7 +47,9 @@ function handleUsers(url) {
   });
 
   app.post("/users", (req, res) => {
-    const id = users.data.length ? Math.max(...users.data.map((user) => user.id)) + 1 : 1;
+    const id = users.data.length
+      ? Math.max(...users.data.map((user) => user.id)) + 1
+      : 1;
     const { name, email } = req.body;
 
     if (!email.includes("@")) {
@@ -60,7 +62,7 @@ function handleUsers(url) {
     const newUser = { id, name, email };
     users.data.push(newUser);
     writeFilePath(url, users);
-    res.status(201).json(newUser);
+    res.status(201).json({status: 201});
   });
 
   app.delete("/users/:id", (req, res) => {
@@ -70,49 +72,85 @@ function handleUsers(url) {
       return res.status(404).json({ error: "User not found of delete" });
     }
     users.data.splice(userIndex, 1);
-    writeUser(users);
+    writeFilePath(url,users);
     res.status(200).json({ message: "User deleted successfully" });
   });
 
   app.put("/users/:id", (req, res) => {
     const userId = parseInt(req.params.id);
+    const { name, email } = req.body;
     const userIndex = users.data.findIndex((user) => user.id === userId);
     if (userIndex === -1) {
       return res.status(404).json({ error: "User not found for put" });
     }
-    users.data[userIndex] = { ...users.data[userIndex], ...req.body };
-    writeUser(users);
-    res.status(200).json(users.users[userIndex]);
+    
+    users.data[userIndex] = { ...users.data[userIndex], name: name, email: email };
+    writeFilePath(url, users);
+    res.status(200).json(users.data[userIndex]);
   });
 }
 function handleCarts(url) {
   // enter recording in user.json
   const carts = readFilePath(url);
-  //  Get file carts.json
-  carts.bill.forEach((element) => {
-    let totalPrice = 0;
-    element.items.forEach((item) => {
-      item.total = item.quantity *= item.price;
-      totalPrice += item.total;
-    });
-    console.log((element.total = totalPrice));
-  });
-
   app.get("/carts", (req, res) => {
     res.status(200).json(carts);
   });
   app.post("/carts", (req, res) => {
-    const { product, price, quantity } = req.body;
-    if (!product || !price || !quantity) {
-      return res
-        .status(400)
-        .json({ message: "Please fill in all information!" });
+    const id = carts.bill[0].items.length
+      ? Math.max(...carts.bill[0].items.map((product) => product.id)) + 1
+      : 1;
+
+    const { name, price, quantity } = req.body;
+
+    const newProduct = { id, name, quantity, price };
+    try {
+      carts.bill[0].total = 0;
+      if (carts.bill && carts.bill[0] && carts.bill[0].items) {
+        carts.bill[0].items.push(newProduct);
+        carts.bill[0].items.forEach((element) => {
+        
+          carts.bill[0].total += element.quantity * element.price;
+        });
+        writeFilePath(url, carts);
+        res.status(200).json({
+          message: "Product added successfully!",
+          product: newProduct,
+        });
+      } else {
+        res.status(500).json({ message: "Invalid JSON structure!" });
+      }
+    } catch (error) {
+      console.error("Error while updating carts:", error);
+      res
+        .status(500)
+        .json({ message: "An error occurred while processing the request." });
     }
-    carts.bill.push() 
-    writeFilePath(url, carts.bill)
-    res.status(200).json(bill)
   });
-   
+  app.delete("/carts/:id", (req, res) => {
+    const productId = parseInt(req.params.id);
+    const productIndex = carts.bill[0].items.findIndex((product) => product.id === productId)
+    if (productIndex === -1) {
+      return res.status(404).json({ error: "Product not found of delete" });
+    }
+    carts.bill[0].total = 0;
+    carts.bill[0].items.splice(productIndex, 1);
+    carts.bill[0].items.forEach((element) => {
+      carts.bill[0].total += element.quantity * element.price;
+    });
+    writeFilePath(url, carts);
+    res.status(200).json({ message: "Product deleted successfully" });
+  });
+  app.put("/carts/:id", (req, res) => {
+    const productId = parseInt(req.params.id);
+    const {name, quantity, price} = req.body
+    const productIndex = carts.bill[0].items.findIndex((product) => product.id === productId)
+    if (productIndex === -1) {
+      return res.status(404).json({ error: "Product not found of put" });
+    }
+    carts.bill[productIndex] = { ...carts.bill[productIndex], name: name, quantity: quantity, price: price};
+    writeFilePath(url, carts);
+    res.status(200).json( carts.bill[productIndex] );
+  })
 }
 // read file and save in variable readUsers
 
@@ -190,7 +228,8 @@ function login(urlJson) {
   });
 }
 
-// handleUsers(userUrl);
-handleCarts(carts);
-// login(registerUrl);
-// register(registerUrl);
+handleUsers(userUrl);
+handleCarts(cartsUrl);
+login(registerUrl);
+register(registerUrl);
+// console.log(cartsUrl);

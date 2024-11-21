@@ -1,92 +1,8 @@
-/* Căn giữa form */
-#form_container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f0f2f5;
-}
+/* Topic 2 button.html*/
 
-/* Định dạng tiêu đề */
-h2 {
-    font-size: 24px;
-    color: #333;
-    margin-bottom: 20px;
-    text-align: center;
-    font-family: Arial, sans-serif;
-}
+/* topic 3 users.html */
 
-/* Định dạng form */
-form {
-    background: #fff;
-    padding: 20px 30px;
-    border-radius: 10px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-    width: 300px;
-    font-family: Arial, sans-serif;
-    position: relative;
-}
-
-/* Định dạng label */
-label {
-    font-size: 14px;
-    color: #555;
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-
-/* Định dạng input */
-input[type="text"],
-input[type="email"] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    box-sizing: border-box;
-    font-size: 14px;
-    transition: border-color 0.3s ease;
-}
-
-/* Hiệu ứng khi input được focus */
-input[type="text"]:focus,
-input[type="email"]:focus {
-    border-color: #007BFF;
-    outline: none;
-}
-
-/* Định dạng nút Enter */
-#enterBtn{
-    width: 100%;
-    padding: 10px;
-    background-color: #007BFF;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-button[type="submit"]:hover {
-    background-color: #0056b3;
-}
-
-/* Định dạng nút X */
-button[type="button"] {
-    margin-top: 10px;
-    width: 100%;
-    padding: 10px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
+  
 
 
 /* topic 16 login */
@@ -181,3 +97,11 @@ button[type="button"]:hover {
 .form_footer a:hover {
     text-decoration: underline;
 }
+/* topic 4 carts.html */
+
+
+
+   /* topic 6  */
+
+
+/* topic 7 */

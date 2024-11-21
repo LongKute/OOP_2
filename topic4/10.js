@@ -3,6 +3,18 @@
 // 10. (Liên quan câu 11) Tạo một lớp Store để quản lý trạng thái của ứng dụng. Lớp này nên có các phương thức getState(), setState(), và subscribe() để lưu và lắng nghe sự thay đổi trạng thái.
 
 import elements from "../val.js";
+function fetchConfig(ApiAction, bodyData = null){
+    const config = {
+        method: ApiAction,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      if (bodyData) {
+        config.body = JSON.stringify(bodyData);
+      }
+      return config;
+  }
 const ApiAction = {
     delete: "DELETE",
     put: "PUT",
@@ -18,7 +30,7 @@ class Store {
   }
   async getState(url) {
     try {
-      const response = await fetch(`${this.baseUrl}${url}`, this.fetchConfig(ApiAction.get));
+      const response = await fetch(`${this.baseUrl}${url}`, fetchConfig(ApiAction.get));
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
@@ -39,45 +51,15 @@ class Store {
   //   })
   // }
   async subscribe(url) {
-   const newCart = {
-    name: elements.inputProduct.value,
-    price: elements.inputPrice.value,
-    quantity: elements.inputQuantity.value
-   }
    try {
-    const response = await fetch(`${this.baseUrl}${url}`, this.fetchConfig(ApiAction.post, newCart))
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    const data = await response.json()
+    
    
-    
-    elements.postProduct.addEventListener('click', ()=>{
-      console.log(data);
-      
-    
-      
-      
-    })
-    
-    
-    
-   } catch (error) {
-    
+   } 
+   catch (error) {
+   
    }
   }
-  fetchConfig(ApiAction, bodyData = null){
-    const config = {
-        method: ApiAction,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
-      if (bodyData) {
-        config.body = JSON.stringify(bodyData);
-      }
-      return config;
-  }
+  
   //crete function get date and time realtime
   getDateAndTime(){
     const today = new Date();
@@ -94,3 +76,5 @@ const store = new Store(baseURL);
 store.getState(url);
 // store.setState()
 store.subscribe(url)
+export default Store
+

@@ -8,24 +8,27 @@ class SubmitButton extends Button {
         super()
         this.isOpen = false;
     }
-    onClick(){
-        super.onClick(() => {
+    openForm(){
+        this.onClick(elements.submitButton,() => {
         // create tilte
-        const tilte = document.createElement("h2")
-        tilte.innerHTML = "Change information user"
-        elements.formCheck.appendChild(tilte)
-
+        
         })
     }
     open(){
-
+        this.formCheck.style.display = "Block"
+        this.isOpen = false
     }
     close(){
-
+        this.formCheck.style.display = "none"
+        this.isOpen = false
     }
     toggle(){
-
+        if (this.isOpen) {
+            this.close()
+        }else {
+            this.open()
+        }
     }
 }
 const submitButon = new SubmitButton();
-submitButon.onClick()
+submitButon.openForm()

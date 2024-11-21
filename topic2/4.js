@@ -5,19 +5,17 @@ class Button {
     //định nghĩa nhãn
     this.label = label;
     //
-    this.buttonElement = document.createElement("button")
-    this.buttonElement.innerHTML = this.label
-    elements.createBtn.appendChild(this.buttonElement)
   }
-  onClick(action) {
-    this.buttonElement.addEventListener("click", action)
+  onClick(element,action) {
+    element.addEventListener("click", action)
     }
   }
 
 
 const button = new Button("Click");
-// button.onClick(() => {
+// button.onClick(elements.submitButton , () => {
 //     console.log("Hello");
     
 // })
+
 export default Button;

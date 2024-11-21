@@ -7,7 +7,7 @@ class Modal {
     }
     open(myModal){
         this.modal.style.display = "block"
-        // when click button myModal turn off 
+        // When pressed outside the modal will turn off
         elements.myModal.addEventListener('click', (event) => {
             if (event.target === this.modal) {
                 this.close();

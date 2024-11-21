@@ -38,8 +38,8 @@ class ApiService {
     fetch(`${this.baseUrl}${url}`, fetchConfig(ApiAction.get))
       .then((response) => response.json())
       .then((response) => {
-        elements.getBtn.addEventListener("click", () => {
-          createUserList(response.data);
+        elements.getBtn.addEventListener("click", async () => {
+          await createUserList(response.data);
         });
       });
   }
@@ -70,21 +70,21 @@ class ApiService {
     });
   }
 
-  //   delete(url){
+  delete(url){
 
-  //       fetch(`${this.baseUrl}${url}`, {
-  //           method: "DELETE",
-  //           headers: {
-  //               "Content-Type": "application/json"
-  //           },
-  //           body:JSON.stringify()
-  //       })
-  //       .then(response => response.json())
-  //       .then(response => {
-  //           console.log(response.id);
+        fetch(`${this.baseUrl}${url}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body:JSON.stringify()
+        })
+        .then(response => response.json())
+        .then(response => {
+            console.log(response.id);
 
-  //       })
-  //   }
+        })
+    }
 }
 
 function createDelButtonByID(id) {
@@ -98,7 +98,19 @@ function createDelButtonByID(id) {
         console.log(response.data);
       });
   };
-  return deleteBtn;
+  return deleteBtn
+  
+}
+function createEditButtonbyID(id) {
+  
+  const editBtn = document.createElement("button");
+  editBtn.textContent = "Edit";
+  editBtn.onclick = () => {
+    //call edit api
+    createForm(id);
+   
+  };
+  return editBtn
 }
 function createUserList(user) {
   user.forEach((element) => {
@@ -108,19 +120,9 @@ function createUserList(user) {
     elements.userList.appendChild(createDelButtonByID(element.id));
     elements.userList.appendChild(createEditButtonbyID(element.id));
   });
-  return user;
+  return user
 }
-function createEditButtonbyID() {
-  
-  const editBtn = document.createElement("button");
-  editBtn.textContent = "Edit";
-  editBtn.onclick = () => {
-    //call edit api
-    createForm();
-   
-  };
-  return editBtn;
-}
+
 function createForm(id) {
  
   const formContainer = document.getElementById("form-container");
@@ -167,10 +169,15 @@ function createForm(id) {
   enterButton.textContent = "Enter";
   form.appendChild(enterButton);
   enterButton.onclick = () =>{
-    fetch(`${baseURL}${user}/${id}`)
+    const updateUser = {
+      name: document.getElementById("name").value,
+      email: document.getElementById("email").value,
+    };
+    fetch(`${baseURL}${user}/${id}`, fetchConfig(ApiAction.put, updateUser))
       .then((response) => response.json())
       .then((response) => {
         console.log(response.data);
+        alert("Thông báo")
       });
   }
   // create button X
