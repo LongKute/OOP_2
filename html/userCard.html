@@ -1,24 +1,18 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>User Card</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Card</title>
+    <!-- <link rel="stylesheet" href="../css/userCard.css"> -->
 </head>
 <body>
-  <!-- Sử dụng thẻ CustomElement -->
-  <user-card
-    name="Nguyen Van A"
-    email="nguyenvana@example.com"
-    avatar="https://hoanghamobile.com/tin-tuc/wp-content/uploads/2024/05/anh-meme-meo-20.jpg"
-  ></user-card>
-  <user-card
-    name="Nguyen Van B"
-    email="nguyenvana@example.com"
-    avatar="https://via.placeholder.com/100"
-  ></user-card>
+    <h1>User Cards</h1>
 
-  <!-- Nhúng file JavaScript -->
-  <script src="../topic5/13.js"></script>
+    <!-- Chèn Custom Element -->
+    <user-card userId = "9" name="John Doe" email="john@example.com" avatar="https://via.placeholder.com/100"></user-card>
+    <user-card userId = "12" name="Jane Smith" email="jane@example.com" avatar="https://via.placeholder.com/100"></user-card>
+
+    <script src="../topic5/13.js" type="module"></script>
 </body>
 </html>

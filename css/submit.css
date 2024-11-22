@@ -1,5 +1,13 @@
+
+.form{
+  display: none;
+}
+#formButton{
+  display: flex;
+  text-align: center;
+  
+}
 #formCheck {
-    display: none;
     width: 400px;
     padding: 20px;
     background-color: #f9f9f9;
@@ -36,7 +44,7 @@
   }
   
   /* Button styling */
-  #formCheck button {
+  #submitButton {
 
     background-color: #007bff;
     color: #fff;
@@ -47,12 +55,25 @@
     cursor: pointer;
     transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
   }
+  #closeForm{
+    background-color: #fb1c1c;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+  }
   
-  #formCheck button:hover {
+  #submitButton:hover {
     background-color: #0056b3;
     color: #e6e6e6;
   }
-  
+  #closeForm:hover {
+    background-color: #000000;
+    color: #e6e6e6;
+  }
   /* Responsive design */
   @media (max-width: 480px) {
     #formCheck {
@@ -73,7 +94,29 @@
     cursor: pointer;
     transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
   }
+  #confirmModal{
+    display: none;
+}
   #formButton:hover {
     background-color: #0056b3;
     color: #e6e6e6;
   }
+  #confirmOkBtn, #confirmNoBtn {
+    padding: 8px 16px;
+    font-size: 14px;
+    margin: 10px 5px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+}
+
+/* Kiểu cho nút OK */
+#confirmOkBtn {
+    
+    color: black;
+}
+
+/* Kiểu cho nút No */
+#confirmNoBtn {
+    color: black;
+}

@@ -8,9 +8,10 @@ const app = express();
 const crypto = require("crypto");
 // file json
 const userUrl = "json/users.json";
-const loginUrl = "json/userLogin.json";
+
 const registerUrl = "json/register.json";
 const cartsUrl = "json/carts.json";
+const submitUrl = "json/submitUsers.json"
 
 // const filePathCart = path.join(__dirname, "carts.json");
 
@@ -38,6 +39,16 @@ function writeFilePath(url, element) {
   return fs.writeFileSync(filePath, JSON.stringify(element, null, 2));
 }
 
+function submit(url) {
+ const submits = readFilePath(url)
+  app.post("/submit", (req, res) => {
+    const {name, email} = req.body
+    const submitUser ={name, email}
+    submits.submit.push(submitUser)
+    writeFilePath(url, submits)
+    res.status(201).json({status: 201, message: submits});
+  }) 
+}
 function handleUsers(url) {
   // req == "request" // res == "response"
   const users = readFilePath(url);
@@ -227,9 +238,17 @@ function login(urlJson) {
     res.json({ message: "Log in successfully!", token: token });
   });
 }
+function logOut() {
+  app.post("/logout", (req, res) => {
+    res.status(200).json({ message: "Logged out successfully!" });
+  });
+}
+
 
 handleUsers(userUrl);
 handleCarts(cartsUrl);
 login(registerUrl);
 register(registerUrl);
+logOut()
+submit(submitUrl)
 // console.log(cartsUrl);

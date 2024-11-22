@@ -30,7 +30,6 @@ function buttonRegister() {
         alert(result.message);
 
         if (response.ok) {
-          localStorage.setItem('Register', result.token);
           window.location.href = "../html/login.html"; 
         }
       } catch (error) {
@@ -61,7 +60,7 @@ function buttonLogin() {
 
         if (response.ok) {
           localStorage.setItem('Authen', result.token);
-          // window.location.href = "access.html"; 
+          window.location.href = "../html/access.html"; 
         } else {
           console.warn(result.message);
         }
@@ -71,11 +70,23 @@ function buttonLogin() {
     };
   }
 }
+function buttonLogOut() {
+  if (elements.logoutButton) {
+    elements.logoutButton.onclick = () => {
+      // Clear the token from localStorage
+      localStorage.removeItem('Authen');
+      alert('Logged out successfully!');
+      window.location.href = "../html/login.html"; // Redirect to login page
+    };
+  }
+}
 buttonRegister()
 buttonLogin()
-document.addEventListener("DOMContentLoaded", () => {
-  const token = userStorage.load("Token");
-  if (token) {
-    console.log("User is already logged in:", token);
-  }
-});
+buttonLogOut()
+// document.addEventListener("DOMContentLoaded", () => {
+//   const token = userStorage.load("Token");
+//   if (token) {
+//     console.log("User is already logged in:", token);
+//   }
+// });
+

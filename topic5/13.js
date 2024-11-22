@@ -1,86 +1,109 @@
 // Chủ đề 5: Kết hợp OOP và Web Component
 
-// 13. (Liên quan câu 14) Tạo một CustomElement sử dụng Web Components và ES6 class, đại diện cho một UserCard hiển thị thông tin người dùng.
+// 13. (Liên quan câu 14) Tạo một CustomElement sử dụng Web Components và ES6 class, đại diện cho một UserCard hiển thị thông tin người dùng. 
 // 14. (Liên quan câu 13) Mở rộng UserCard để cho phép người dùng chỉnh sửa thông tin ngay trên thẻ, bằng cách thêm các nút edit và save.
 // 15. (Liên quan câu 13, 14) Tích hợp với UserService từ Chủ đề 3 để lưu thông tin đã chỉnh sửa qua API khi người dùng bấm nút "Save".
 
 // Tạo class UserCard kế thừa từ HTMLElement
 // Tạo class UserCard kế thừa từ HTMLElement
+import UserService from '../topic3/8.js'; // Đảm bảo đường dẫn chính xác đến file UserService.js
+
 class UserCard extends HTMLElement {
-    constructor() {
-      super();
-  
-      // Tạo Shadow DOM
-      this.attachShadow({ mode: 'open' });
-  
-      // Thêm cấu trúc HTML cơ bản
-      this.shadowRoot.innerHTML = `
-        <style>
-          :host {
-            display: block;
-            font-family: Arial, sans-serif;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 16px;
-            max-width: 300px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  constructor() {
+    super();
+    this.attachShadow({ mode: "open" });
+
+    // Get Attribute
+    this.name = this.getAttribute("name");
+    this.email = this.getAttribute("email");
+    this.avatar = this.getAttribute("avatar");
+    this.userId = this.getAttribute("userId");
+
+    // Edit status
+    this.isEditing = false;
+
+    // Initialize UserService
+    this.userService = new UserService('http://127.0.0.1:3006'); // Đảm bảo URL đúng
+
+    // Render HTML
+    this.render();
+  }
+
+  // The render function to create the interface
+  render() {
+    this.shadowRoot.innerHTML = `
+      <link rel="stylesheet" href="../css/userCard.css">
+      <div class="user-card">
+        <img src="${this.avatar}" alt="Avatar of ${this.name}" class="avatar">
+        <div class="user-info">
+          ${
+            this.isEditing
+              ? `
+            <input type="text" id="nameInput" value="${this.name}">
+            <input type="email" id="emailInput" value="${this.email}">
+          `
+              : `
+            <h3>${this.name}</h3>
+            <p>${this.email}</p>
+          `
           }
-          .avatar {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 16px;
-          }
-          .name {
-            font-size: 1.2em;
-            font-weight: bold;
-            margin-bottom: 8px;
-          }
-          .email {
-            font-size: 0.9em;
-            color: #666;
-          }
-        </style>
-        <img class="avatar" src="" alt="User Avatar">
-        <div class="name"></div>
-        <div class="email"></div>
-      `
+        </div>
+        <div class="actions">
+          <button id="editButton">${this.isEditing ? "Save" : "Edit"}</button>
+          ${this.isEditing ? `<button id="cancelButton">Cancel</button>` : ""}
+        </div>
+      </div>
+    `;
+    this.attachEvents();
+  }
+
+  // Function to handle events
+  attachEvents() {
+    const editButton = this.shadowRoot.querySelector("#editButton");
+    const cancelButton = this.shadowRoot.querySelector("#cancelButton");
+    const nameInput = this.shadowRoot.querySelector("#nameInput");
+    const emailInput = this.shadowRoot.querySelector("#emailInput");
+
+    if (editButton) {
+      editButton.addEventListener("click", () => {
+        if (this.isEditing) {
+          // Save information when clicking Save
+          const updatedUser = {
+            name: nameInput.value,
+            email: emailInput.value,
+          };
+
+         
+          // Call UserService to update user information
+          this.userService.updateUser('/users', this.userId, updatedUser)
+            .then(() => {
+              this.name = nameInput.value;
+              this.email = emailInput.value;
+              this.isEditing = false;
+              this.render(); // Cập nhật giao diện
+              alert("User updated successfully!");
+            })
+            .catch((error) => {
+              console.error("Error updating user:", error);
+              alert("Failed to update user.");
+            });
+        } else {
+          // Switch to edit mode
+          this.isEditing = true;
+          this.render();
+        }
+      });
     }
-  
-    // Lắng nghe các thuộc tính thay đổi
-    static get observedAttributes() {
-      return ['name', 'email', 'avatar'];
-    }
-  
-    // Xử lý khi thuộc tính thay đổi
-    attributeChangedCallback(name, oldValue, newValue) {
-      if (oldValue !== newValue) {
-        this.updateCard(name, newValue);
-      }
-    }
-  
-    // Cập nhật thông tin thẻ
-    updateCard(attribute, value) {
-      const element = this.shadowRoot.querySelector(`.${attribute}`);
-      if (attribute === 'avatar') {
-        element.src = value;
-        element.alt = `Avatar of ${this.getAttribute('name') || 'user'}`;
-      } else {
-        element.textContent = value;
-      }
+
+    if (cancelButton) {
+      cancelButton.addEventListener("click", () => {
+      // Cancel editing
+        this.isEditing = false;
+        this.render();
+      });
     }
   }
-  
-  // Đăng ký CustomElement
-  customElements.define('user-card', UserCard);
-  
-  // Sử dụng UserCard trong HTML
-  document.body.innerHTML = `
-    <user-card
-      name="Nguyen Van A"
-      email="nguyenvana@example.com"
-      avatar="https://via.placeholder.com/100"
-    ></user-card>
-  `;
-  
+}
+
+// Đăng ký Custom Element
+customElements.define("user-card", UserCard);

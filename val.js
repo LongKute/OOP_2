@@ -13,10 +13,12 @@ const elementIds = [
     "confirmNoBtn",
     //topic2
     "createBtn",
+    "form",
     "formCheck",
+    "formButton",
     "submitButton",
-    "name",
-    "email",
+    "nameForm",
+    "emailForm",
     //topic3
     "getBtn",
     "postBtn",
@@ -43,7 +45,9 @@ const elementIds = [
     "btn_register",
     "username",
     "password",
-    "btn_login"
+    "btn_login",
+    //topic 7 
+    "logoutButton"
 
 
 ]

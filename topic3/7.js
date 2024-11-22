@@ -1,5 +1,4 @@
 // 7. (Liên quan câu 8) Tạo một lớp ApiService để quản lý các yêu cầu HTTP tới một API bên ngoài. Lớp này nên có các phương thức get(), post(), put(), và delete() để thực hiện các loại yêu cầu khác nhau.
-// 9. (Liên quan câu 7, 8) Viết mã JavaScript để lấy danh sách người dùng từ API thông qua UserService và hiển thị thông tin người dùng lên giao diện web.
 
 // const newUser =
 import elements from "../val.js";
@@ -15,7 +14,6 @@ const fetchConfig = (ApiAction, bodyData = null) => {
   if (bodyData) {
     config.body = JSON.stringify(bodyData);
   }
-
   return config;
 };
 
@@ -34,17 +32,18 @@ class ApiService {
   //     this.buttonElement.addEventListener("click", action)
   // }
 
-  get(url) {
+  get(url, element) {
     fetch(`${this.baseUrl}${url}`, fetchConfig(ApiAction.get))
       .then((response) => response.json())
       .then((response) => {
-        elements.getBtn.addEventListener("click", async () => {
+        element.addEventListener("click", async () => {
           await createUserList(response.data);
         });
       });
   }
-  post(url) {
-    elements.postBtn.addEventListener("click", () => {
+  post(url, element) {
+   
+    element.addEventListener("click", () => {
       const newUser = {
         name: elements.inputName.value,
         email: elements.inputEmail.value,
@@ -57,8 +56,9 @@ class ApiService {
         .catch((error) => console.error("error id", error));
     });
   }
-  put(url) {
-    elements.putBtn.addEventListener("click", () => {
+  put(url, element) {
+    
+    element.addEventListener("click", () => {
       fetch(`${this.baseUrl}${url}`, {
         ...fetchConfig(ApiAction.put),
       })
@@ -70,21 +70,19 @@ class ApiService {
     });
   }
 
-  delete(url){
-
-        fetch(`${this.baseUrl}${url}`, {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body:JSON.stringify()
-        })
-        .then(response => response.json())
-        .then(response => {
-            console.log(response.id);
-
-        })
-    }
+  delete(url) {
+    fetch(`${this.baseUrl}${url}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(),
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        console.log(response.id);
+      });
+  }
 }
 
 function createDelButtonByID(id) {
@@ -98,19 +96,16 @@ function createDelButtonByID(id) {
         console.log(response.data);
       });
   };
-  return deleteBtn
-  
+  return deleteBtn;
 }
 function createEditButtonbyID(id) {
-  
   const editBtn = document.createElement("button");
   editBtn.textContent = "Edit";
   editBtn.onclick = () => {
     //call edit api
     createForm(id);
-   
   };
-  return editBtn
+  return editBtn;
 }
 function createUserList(user) {
   user.forEach((element) => {
@@ -120,13 +115,12 @@ function createUserList(user) {
     elements.userList.appendChild(createDelButtonByID(element.id));
     elements.userList.appendChild(createEditButtonbyID(element.id));
   });
-  return user
+  return user;
 }
 
 function createForm(id) {
- 
   const formContainer = document.getElementById("form-container");
-  
+
   const form = document.createElement("form");
   // create title
   const title = document.createElement("h2");
@@ -168,7 +162,7 @@ function createForm(id) {
   enterButton.setAttribute("id", "enterBtn");
   enterButton.textContent = "Enter";
   form.appendChild(enterButton);
-  enterButton.onclick = () =>{
+  enterButton.onclick = () => {
     const updateUser = {
       name: document.getElementById("name").value,
       email: document.getElementById("email").value,
@@ -177,9 +171,9 @@ function createForm(id) {
       .then((response) => response.json())
       .then((response) => {
         console.log(response.data);
-        alert("Thông báo")
+        alert("change information user");
       });
-  }
+  };
   // create button X
   const closeButton = document.createElement("button");
   closeButton.setAttribute("type", "button");
@@ -196,8 +190,8 @@ function createForm(id) {
 const baseURL = "http://127.0.0.1:3006";
 const user = "/users";
 const apiService = new ApiService(baseURL);
-apiService.get(user);
-apiService.post(user);
-apiService.put(user);
+// apiService.get(user, elements.getBtn);
+// apiService.post(user, elements.postBtn);
+// apiService.put(user, elements.putBtn);
 // apiService.delete('/users')
-export default ApiService
+export default ApiService;

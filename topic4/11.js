@@ -49,7 +49,6 @@ class CartStore extends Store {
       console.error("Error when adding product:", error.message);
     }
   }
-  deleteProduct(url) {}
   totalProduct(url) {
     try {
       document.addEventListener("DOMContentLoaded", () => {
@@ -62,7 +61,6 @@ class CartStore extends Store {
             throw new Error(`HTTP error! status: ${response.status}`);
           }
           const data = await response.json();
-          let id = 0;
           data.bill[0].items.forEach((element) => {
             this.createProduct(
               JSON.stringify(
@@ -70,14 +68,14 @@ class CartStore extends Store {
               )
             );
             this.deleteButton(url, element.id);
-            this.editButton(url, element.id)
-            id++;
+            // this.editButton(url, element.id)
+            
+            
+            
           })
-          document.addEventListener("DOMContentLoaded", () => {
-            const total = document.createElement("li");
-            total.textContent = data.bill[0].total;
-            elements.listCarts.appendChild("total", total);
-          })
+        const total = document.createElement("p");
+        total.textContent = `Total price: ${data.bill[0].total}`;
+        elements.listCarts.appendChild(total);
            
         });
       });
@@ -103,18 +101,24 @@ class CartStore extends Store {
       }
     });
   }
-  editButton(url, id){
-    const editBtn = document.createElement("button");
-    editBtn.textContent = "Edit";
-    elements.listCarts.appendChild(editBtn);
-    editBtn.addEventListener('click', async () => {
-      const response = await fetch(
-        `${this.baseUrl}${url}/${id}`,
-        fetchConfig(ApiAction.put)
-      );
-      const data = await response.json();
-    })
-  }
+  // editButton(url, id){
+  //   const editBtn = document.createElement("button");
+  //   editBtn.textContent = "Edit";
+  //   elements.listCarts.appendChild(editBtn);
+  //   editBtn.addEventListener("click", ()=> {
+  //     const editProduct = {
+      
+  //     }
+  //   })
+  //   editBtn.addEventListener('click', async () => {
+  //     const response = await fetch(
+  //       `${this.baseUrl}${url}/${id}`,
+  //       fetchConfig(ApiAction.put)
+  //     );
+  //     const data = await response.json();
+  //   })
+  // }
+  
 }
 
 const cartStore = new CartStore(baseURL);

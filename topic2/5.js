@@ -4,22 +4,28 @@ import Button from "./4.js"
 import elements from "../val.js"
 
 class SubmitButton extends Button {
-    constructor() {
+    constructor(formUser,baseUrl) {
         super()
+        this.baseUrl = baseUrl
+        this.form = formUser
         this.isOpen = false;
     }
     openForm(){
-        this.onClick(elements.submitButton,() => {
-        // create tilte
+        this.onClick(elements.formButton,(event) => {
+            console.log("hello");
+            if (event.target === this.form) {
+                this.close();
+            }
+        this.open()
         
         })
     }
     open(){
-        this.formCheck.style.display = "Block"
-        this.isOpen = false
+        this.form.style.display = "Block"
+        this.isOpen = true
     }
     close(){
-        this.formCheck.style.display = "none"
+        this.form.style.display = "none"
         this.isOpen = false
     }
     toggle(){
@@ -29,6 +35,30 @@ class SubmitButton extends Button {
             this.open()
         }
     }
+    addSubmitUser(url){
+      
+    elements.submitButton.addEventListener("click", async () => {
+        const newSubmitUser = {
+            name: elements.nameForm.value,
+            email: elements.emailForm.value
+        }
+        const response = await fetch(`${this.baseUrl}${url}`, {
+            method:"POST",
+            headers: {
+                "Content-Type": "application/json",
+                
+            },
+            body:JSON.stringify(newSubmitUser)
+            
+        })
+        const data = await response.json()
+        alert("test")
+        console.log(data);
+        
+
+    })
+    }
 }
-const submitButon = new SubmitButton();
+const submitButon = new SubmitButton(elements.form,"http://127.0.0.1:3006");
 submitButon.openForm()
+submitButon.addSubmitUser("/submit")
