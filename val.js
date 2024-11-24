@@ -30,6 +30,9 @@ const elementIds = [
     "inputEmail",
     //topic4
     "statusCode",
+    "getStatusBtn",
+    "setStatusBtn",
+    "subscribeBtn",
     "postStatus",
     "inputProduct",
     "inputPrice",
@@ -37,6 +40,8 @@ const elementIds = [
     "postProduct",
     "totalProduct",
     "listCarts",
+    "output",
+
     //topic6
     "register_username",
     "register_email",

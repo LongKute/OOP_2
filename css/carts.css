@@ -25,6 +25,39 @@ body {
   #statusCode:hover {
     background-color: #0056b3;
   }
+  #setStatusBtn {
+    display: block;
+    margin: 0 auto 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  #setStatusBtn:hover {
+    background-color: #0056b3;
+  }
+  #subscribeBtn {
+    display: block;
+    margin: 0 auto 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  #subscribeBtn:hover {
+    background-color: #0056b3;
+  }
+  
   
   /* Vùng chứa các trường nhập và nút */
   div {

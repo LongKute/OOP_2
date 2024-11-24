@@ -1,4 +1,0 @@
-POST http://127.0.0.1:3006/login
-
-###
-GET http://127.0.0.1:3006/login

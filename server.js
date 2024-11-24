@@ -12,6 +12,7 @@ const userUrl = "json/users.json";
 const registerUrl = "json/register.json";
 const cartsUrl = "json/carts.json";
 const submitUrl = "json/submitUsers.json"
+const stateUrl = "json/state.json"
 
 // const filePathCart = path.join(__dirname, "carts.json");
 
@@ -24,23 +25,40 @@ app.use(cors());
 app.listen(port, () => {
   console.log(`Server is running with port: ${port}`);
 });
-
+// message bug
 function debug(message) {
   return console.log(message);
 }
+  // read file.json
 function readFilePath(url) {
-  // read file and save in variable readUsers
   const filePath = path.join(__dirname, url);
   return JSON.parse(fs.readFileSync(filePath, "utf-8"));
 }
+// function write File.json
 function writeFilePath(url, element) {
-  // get user.json from server
   const filePath = path.join(__dirname, url);
   return fs.writeFileSync(filePath, JSON.stringify(element, null, 2));
 }
+  function state(url) {
+    const currentState = readFilePath(url);
+    app.get("/state", (req, res) => {
+      res.json(currentState);
+    });
+    app.post("/state", (req, res) => {
+      const { newState } = req.body;
 
+      if (typeof newState === "undefined") {
+        return res.status(400).json({ message: "Invalid state!" });
+      }
+      currentState.state = newState;
+      writeFilePath(url, currentState);
+      res.json({ message: "State updated successfully!", state: currentState });
+    });
+  }
 function submit(url) {
+  //get data in submitUsers.json
  const submits = readFilePath(url)
+ //post
   app.post("/submit", (req, res) => {
     const {name, email} = req.body
     const submitUser ={name, email}
@@ -62,9 +80,8 @@ function handleUsers(url) {
       ? Math.max(...users.data.map((user) => user.id)) + 1
       : 1;
     const { name, email } = req.body;
-
+    // if don't have @ reurn error message
     if (!email.includes("@")) {
-      debug("Your email is missing the @ sign.");
       return res
         .status(400)
         .json({ message: "Your email is missing the @ sign." });
@@ -179,7 +196,7 @@ function register(urlJson) {
   app.post("/register", (req, res) => {
     const { username, email, password, re_password } = req.body;
     const registerUser = readFilePath(urlJson);
-    // Kiểm tra thông tin
+    // check informaiton if it empty
     if (!username || !email || !password || !re_password) {
       return res
         .status(400)
@@ -252,3 +269,4 @@ register(registerUrl);
 logOut()
 submit(submitUrl)
 // console.log(cartsUrl);
+state(stateUrl)

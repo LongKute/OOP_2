@@ -52,7 +52,7 @@ class SubmitButton extends Button {
             
         })
         const data = await response.json()
-        alert("test")
+        alert("User form successful")
         console.log(data);
         
 
